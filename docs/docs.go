@@ -19,99 +19,27 @@ var doc = `{
         "description": "{{.Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "name": "Jonny Langefeld",
-            "email": "jonny.langefeld@gmail.com"
+            "name": "Tyler Witlin"
         },
-        "license": {},
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/articles": {
+        "/unit/{id}": {
             "get": {
-                "description": "Get all articles stored in the database",
+                "description": "GetUnit returns a single unit by id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Articles"
+                    "Units"
                 ],
-                "summary": "List all articles",
+                "summary": "Get unit by id",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "id of the page to be retrieved",
-                        "name": "page_id",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ArticleList"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "PutArticle writes an article to the database\nTo write a new article, leave the id empty. To update an existing one, use the id of the article to be updated",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Articles"
-                ],
-                "summary": "Add an article to the database",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Article"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/articles/{id}": {
-            "get": {
-                "description": "GetArticle returns a single article by id",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Articles"
-                ],
-                "summary": "Get article by id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "article id",
+                        "description": "unit id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -121,7 +49,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Article"
+                            "$ref": "#/definitions/Unit"
                         }
                     },
                     "400": {
@@ -139,16 +67,16 @@ var doc = `{
                 }
             }
         },
-        "/orders": {
+        "/units": {
             "get": {
-                "description": "Get all orders stored in the database",
+                "description": "Get all units stored in the database",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Orders"
+                    "Units"
                 ],
-                "summary": "List all orders",
+                "summary": "List all units",
                 "parameters": [
                     {
                         "type": "string",
@@ -179,19 +107,19 @@ var doc = `{
                 }
             },
             "put": {
-                "description": "PutOrder writes an order to the database\nTo write a new order, leave the id empty. To update an existing one, use the id of the order to be updated",
+                "description": "PutUnit writes an unit to the database\nTo write a new unit, leave the id empty. To update an existing one, use the id of the unit to be updated",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Orders"
+                    "Units"
                 ],
-                "summary": "Add an order to the database",
+                "summary": "Add an unit to the database",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Order"
+                            "$ref": "#/definitions/Unit"
                         }
                     },
                     "400": {
@@ -209,20 +137,113 @@ var doc = `{
                 }
             }
         },
-        "/orders/{id}": {
+        "/users": {
             "get": {
-                "description": "GetOrder returns a single order by id",
+                "description": "Get all users stored in the database",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Orders"
+                    "Users"
                 ],
-                "summary": "Get order by id",
+                "summary": "List all users",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "order id",
+                        "description": "id of the page to be retrieved",
+                        "name": "page_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UserList"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "PutUser writes an user to the database\nTo write a new user, leave the id empty. To update an existing one, use the id of the user to be updated",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add an user to the database",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user discord",
+                        "name": "discord",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "description": "GetUser returns a single user by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -232,7 +253,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Order"
+                            "$ref": "#/definitions/User"
                         }
                     },
                     "400": {
@@ -252,43 +273,6 @@ var doc = `{
         }
     },
     "definitions": {
-        "Article": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "The unique id of this item",
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "description": "The name of this item",
-                    "type": "string",
-                    "example": "Skittles"
-                },
-                "price": {
-                    "description": "The price of this item",
-                    "type": "number",
-                    "example": 1.99
-                }
-            }
-        },
-        "ArticleList": {
-            "type": "object",
-            "properties": {
-                "items": {
-                    "description": "A list of articles",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Article"
-                    }
-                },
-                "next_page_id": {
-                    "description": "The id to query the next page",
-                    "type": "integer",
-                    "example": 10
-                }
-            }
-        },
         "ErrorResponse": {
             "type": "object",
             "properties": {
@@ -309,35 +293,88 @@ var doc = `{
                 }
             }
         },
-        "Order": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "The unique id of this order",
-                    "type": "integer",
-                    "example": 1
-                },
-                "lastUpdated": {
-                    "description": "DateTime is the date and time of this order",
-                    "type": "string",
-                    "example": "0001-01-01 00:00:00+00"
-                }
-            }
-        },
         "OrderList": {
             "type": "object",
             "properties": {
-                "items": {
-                    "description": "A list of orders",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Order"
-                    }
-                },
                 "next_page_id": {
                     "description": "The id to query the next page",
                     "type": "integer",
                     "example": 10
+                },
+                "units": {
+                    "description": "A list of units",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Unit"
+                    }
+                }
+            }
+        },
+        "Unit": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "The unique id of this unit",
+                    "type": "integer",
+                    "example": 1
+                },
+                "lastUpdated": {
+                    "type": "string",
+                    "example": "0001-01-01 00:00:00+00"
+                },
+                "name": {
+                    "description": "DateTime is the date and time of this unit",
+                    "type": "string",
+                    "example": "Black Element"
+                },
+                "owner": {
+                    "type": "string"
+                },
+                "updatedBy": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "discord": {
+                    "description": "The price of this item",
+                    "type": "string",
+                    "example": "12345678"
+                },
+                "id": {
+                    "description": "The unique id of this item",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "The name of this item",
+                    "type": "string",
+                    "example": "Frosty Sigh"
+                }
+            }
+        },
+        "UserList": {
+            "type": "object",
+            "properties": {
+                "next_page_id": {
+                    "description": "The id to query the next page",
+                    "type": "integer",
+                    "example": 10
+                },
+                "users": {
+                    "description": "A list of users",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/User"
+                    }
                 }
             }
         }
@@ -356,11 +393,11 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "",
-	Host:        "example.com",
+	Host:        "localhost:8080",
 	BasePath:    "/",
 	Schemes:     []string{},
-	Title:       "My API",
-	Description: "This API is a sample go-api.\nIt also does this.",
+	Title:       "REST API Written in go",
+	Description: "This API is designed for Black Element's PERSCOM Project",
 }
 
 type s struct{}

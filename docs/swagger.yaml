@@ -1,0 +1,252 @@
+basePath: /
+definitions:
+  ErrorResponse:
+    properties:
+      code:
+        description: application-specific error code
+        example: 404
+        type: integer
+      error:
+        description: application-level error message, for debugging
+        example: The requested resource was not found on the server
+        type: string
+      status:
+        description: user-level status message
+        example: Resource not found.
+        type: string
+    type: object
+  OrderList:
+    properties:
+      next_page_id:
+        description: The id to query the next page
+        example: 10
+        type: integer
+      units:
+        description: A list of units
+        items:
+          $ref: '#/definitions/Unit'
+        type: array
+    type: object
+  Unit:
+    properties:
+      created:
+        type: string
+      desc:
+        type: string
+      id:
+        description: The unique id of this unit
+        example: 1
+        type: integer
+      lastUpdated:
+        example: 0001-01-01 00:00:00+00
+        type: string
+      name:
+        description: DateTime is the date and time of this unit
+        example: Black Element
+        type: string
+      owner:
+        type: string
+      updatedBy:
+        type: string
+    type: object
+  User:
+    properties:
+      discord:
+        description: The price of this item
+        example: "12345678"
+        type: string
+      id:
+        description: The unique id of this item
+        example: 1
+        type: integer
+      name:
+        description: The name of this item
+        example: Frosty Sigh
+        type: string
+    type: object
+  UserList:
+    properties:
+      next_page_id:
+        description: The id to query the next page
+        example: 10
+        type: integer
+      users:
+        description: A list of users
+        items:
+          $ref: '#/definitions/User'
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: Tyler Witlin
+  description: This API is designed for Black Element's PERSCOM Project
+  title: REST API Written in go
+paths:
+  /unit/{id}:
+    get:
+      description: GetUnit returns a single unit by id
+      parameters:
+      - description: unit id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get unit by id
+      tags:
+      - Units
+  /units:
+    get:
+      description: Get all units stored in the database
+      parameters:
+      - description: id of the page to be retrieved
+        in: query
+        name: page_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: List all units
+      tags:
+      - Units
+    put:
+      description: |-
+        PutUnit writes an unit to the database
+        To write a new unit, leave the id empty. To update an existing one, use the id of the unit to be updated
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add an unit to the database
+      tags:
+      - Units
+  /users:
+    get:
+      description: Get all users stored in the database
+      parameters:
+      - description: id of the page to be retrieved
+        in: query
+        name: page_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/UserList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: List all users
+      tags:
+      - Users
+    put:
+      description: |-
+        PutUser writes an user to the database
+        To write a new user, leave the id empty. To update an existing one, use the id of the user to be updated
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: user name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: user discord
+        in: path
+        name: discord
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Add an user to the database
+      tags:
+      - Users
+  /users/{id}:
+    get:
+      description: GetUser returns a single user by id
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Get user by id
+      tags:
+      - Users
+swagger: "2.0"

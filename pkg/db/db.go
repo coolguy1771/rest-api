@@ -18,12 +18,12 @@ const (
 type ClientInterface interface {
 	Ping() error
 	Connect(connectionString string) error
-	GetArticleByID(id int) *types.Article
-	SetArticle(article *types.Article) error
-	GetArticles(pageID int) *types.ArticleList
-	GetOrderByID(id int) *types.Order
-	SetOrder(order *types.Order) error
-	GetOrders(pageID int) *types.OrderList
+	GetUserByID(id int) *types.User
+	SetUser(user *types.User) error
+	GetUsers(pageID int) *types.UserList
+	GetUnitByID(id int) *types.Unit
+	SetUnit(unit *types.Unit) error
+	GetUnits(pageID int) *types.UnitList
 }
 
 // Client is a custom db client
@@ -56,64 +56,64 @@ func (c *Client) Connect(connectionString string) error {
 
 // autoMigrate creates the default database schema
 func (c *Client) autoMigrate() {
-	c.Client.AutoMigrate(&types.Article{})
-	c.Client.AutoMigrate(&types.Order{})
+	c.Client.AutoMigrate(&types.User{})
+	c.Client.AutoMigrate(&types.Unit{})
 }
 
-// GetArticleByID queries an article from the database
-func (c *Client) GetArticleByID(id int) *types.Article {
-	article := &types.Article{}
+// GetUserByID queries an user from the database
+func (c *Client) GetUserByID(id int) *types.User {
+	user := &types.User{}
 
-	c.Client.Where("id = ?", id).First(&article).Scan(article)
+	c.Client.Where("id = ?", id).First(&user).Scan(user)
 
-	return article
+	return user
 }
 
-// SetArticle writes an article to the database
-func (c *Client) SetArticle(article *types.Article) error {
+// SetUser writes an user to the database
+func (c *Client) SetUser(user *types.User) error {
 	// Upsert by trying to create and updating on conflict
-	if err := c.Client.Create(&article).Error; err != nil {
-		return c.Client.Model(&article).Where("id = ?", article.ID).Update(&article).Error
+	if err := c.Client.Create(&user).Error; err != nil {
+		return c.Client.Model(&user).Where("id = ?", user.ID).Update(&user).Error
 	}
 	return nil
 }
 
-// GetArticles returns all articles from the database
-func (c *Client) GetArticles(pageID int) *types.ArticleList {
-	articles := &types.ArticleList{}
-	c.Client.Where("id >= ?", pageID).Order("id").Limit(pageSize + 1).Find(&articles.Items)
-	if len(articles.Items) == pageSize+1 {
-		articles.NextPageID = articles.Items[len(articles.Items)-1].ID
-		articles.Items = articles.Items[:pageSize]
+// GetUsers returns all users from the database
+func (c *Client) GetUsers(pageID int) *types.UserList {
+	users := &types.UserList{}
+	c.Client.Where("id >= ?", pageID).Order("id").Limit(pageSize + 1).Find(&users.Items)
+	if len(users.Items) == pageSize+1 {
+		users.NextPageID = users.Items[len(users.Items)-1].ID
+		users.Items = users.Items[:pageSize]
 	}
-	return articles
+	return users
 }
 
-// GetOrderByID queries an order from the database
-func (c *Client) GetOrderByID(id int) *types.Order {
-	order := &types.Order{}
+// GetUnitByID queries an unit from the database
+func (c *Client) GetUnitByID(id int) *types.Unit {
+	unit := &types.Unit{}
 
-	c.Client.Where("id = ?", id).First(&order).Scan(order)
+	c.Client.Where("id = ?", id).First(&unit).Scan(unit)
 
-	return order
+	return unit
 }
 
-// SetOrder writes an order to the database
-func (c *Client) SetOrder(order *types.Order) error {
+// SetUnit writes an unit to the database
+func (c *Client) SetUnit(unit *types.Unit) error {
 	// Upsert by trying to create and updating on conflict
-	if err := c.Client.Create(&order).Error; err != nil {
-		return c.Client.Model(&order).Where("id = ?", order.ID).Update(&order).Error
+	if err := c.Client.Create(&unit).Error; err != nil {
+		return c.Client.Model(&unit).Where("id = ?", unit.ID).Update(&unit).Error
 	}
 	return nil
 }
 
-// GetOrders returns all orders from the database
-func (c *Client) GetOrders(pageID int) *types.OrderList {
-	orders := &types.OrderList{}
-	c.Client.Find(&orders.Items).Where("id >= ?", pageID).Order("id").Limit(pageSize + 1)
-	if len(orders.Items) == pageSize+1 {
-		orders.NextPageID = orders.Items[len(orders.Items)-1].ID
-		orders.Items = orders.Items[:pageSize+1]
+// GetUnit returns all units from the database
+func (c *Client) GetUnits(pageID int) *types.UnitList {
+	unit := &types.UnitList{}
+	c.Client.Find(&unit.Units).Where("id >= ?", pageID).Order("id").Limit(pageSize + 1)
+	if len(unit.Units) == pageSize+1 {
+		unit.NextPageID = unit.Units[len(unit.Units)-1].ID
+		unit.Units = unit.Units[:pageSize+1]
 	}
-	return orders
+	return unit
 }

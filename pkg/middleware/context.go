@@ -18,10 +18,10 @@ type (
 )
 
 const (
-	// ArticleCtxKey refers to the context key that stores the article
-	ArticleCtxKey CustomKey = "article"
-	// OrderCtxKey refers to the context key that stores the order
-	OrderCtxKey CustomKey = "order"
+	// UserCtxKey refers to the context key that stores the user
+	UserCtxKey CustomKey = "user"
+	// UnitCtxKey refers to the context key that stores the unit
+	UnitCtxKey CustomKey = "unit"
 )
 
 var DBClient db.ClientInterface
@@ -30,12 +30,12 @@ func SetDBClient(c db.ClientInterface) {
 	DBClient = c
 }
 
-// Article middleware is used to load an Article object from
+// User middleware is used to load an User object from
 // the URL parameters passed through as the request. In case
-// the Article could not be found, we stop here and return a 404.
-func Article(next http.Handler) http.Handler {
+// the User could not be found, we stop here and return a 404.
+func User(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var article *types.Article
+		var user *types.User
 
 		if id := chi.URLParam(r, "id"); id != "" {
 			intID, err := strconv.Atoi(id)
@@ -43,27 +43,27 @@ func Article(next http.Handler) http.Handler {
 				_ = render.Render(w, r, types.ErrInvalidRequest(err))
 				return
 			}
-			article = DBClient.GetArticleByID(intID)
+			user = DBClient.GetUserByID(intID)
 		} else {
 			_ = render.Render(w, r, types.ErrNotFound())
 			return
 		}
-		if article == nil {
+		if user == nil {
 			_ = render.Render(w, r, types.ErrNotFound())
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), ArticleCtxKey, article)
+		ctx := context.WithValue(r.Context(), UserCtxKey, user)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
-// Order middleware is used to load an Order object from
+// Unit middleware is used to load an Unit object from
 // the URL parameters passed through as the request. In case
-// the Order could not be found, we stop here and return a 404.
-func Order(next http.Handler) http.Handler {
+// the Unit could not be found, we stop here and return a 404.
+func Unit(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var order *types.Order
+		var unit *types.Unit
 
 		if id := chi.URLParam(r, "id"); id != "" {
 			intID, err := strconv.Atoi(id)
@@ -71,17 +71,17 @@ func Order(next http.Handler) http.Handler {
 				_ = render.Render(w, r, types.ErrInvalidRequest(err))
 				return
 			}
-			order = DBClient.GetOrderByID(intID)
+			unit = DBClient.GetUnitByID(intID)
 		} else {
 			_ = render.Render(w, r, types.ErrNotFound())
 			return
 		}
-		if order == nil {
+		if unit == nil {
 			_ = render.Render(w, r, types.ErrNotFound())
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), OrderCtxKey, order)
+		ctx := context.WithValue(r.Context(), UnitCtxKey, unit)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

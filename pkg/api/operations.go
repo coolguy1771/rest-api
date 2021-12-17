@@ -5,135 +5,138 @@ import (
 
 	"github.com/go-chi/render"
 
-	m "github.com/coolguy1771/rest-api/pkg/middelware"
+	m "github.com/coolguy1771/rest-api/pkg/middleware"
 	"github.com/coolguy1771/rest-api/pkg/types"
 )
 
-// GetArticle renders the article from the context
-// @Summary Get article by id
-// @Description GetArticle returns a single article by id
-// @Tags Articles
+// GetUser renders the user from the context
+// @Summary Get user by id
+// @Description GetUser returns a single user by id
+// @Tags Users
 // @Produce json
-// @Param id path string true "article id"
-// @Router /articles/{id} [get]
-// @Success 200 {object} types.Article
+// @Param id path string true "user id"
+// @Router /users/{id} [get]
+// @Success 200 {object} types.User
 // @Failure 400 {object} types.ErrResponse
 // @Failure 404 {object} types.ErrResponse
-func GetArticle(w http.ResponseWriter, r *http.Request) {
-	article := r.Context().Value(m.ArticleCtxKey).(*types.Article)
+func GetUser(w http.ResponseWriter, r *http.Request) {
+	user := r.Context().Value(m.UserCtxKey).(*types.User)
 
-	if err := render.Render(w, r, article); err != nil {
+	if err := render.Render(w, r, user); err != nil {
 		_ = render.Render(w, r, types.ErrRender(err))
 		return
 	}
 }
 
-// PutArticle writes an article to the database
-// @Summary Add an article to the database
-// @Description PutArticle writes an article to the database
-// @Description To write a new article, leave the id empty. To update an existing one, use the id of the article to be updated
-// @Tags Articles
+// PutUser writes an user to the database
+// @Summary Add an user to the database
+// @Description PutUser writes an user to the database
+// @Description To write a new user, leave the id empty. To update an existing one, use the id of the user to be updated
+// @Tags Users
 // @Produce json
-// @Router /articles [put]
-// @Success 200 {object} types.Article
+// @Param id path string true "user id"
+// @Param name path string true "user name"
+// @Param discord path string true "user discord"
+// @Router /users [put]
+// @Success 200 {object} types.User
 // @Failure 400 {object} types.ErrResponse
 // @Failure 404 {object} types.ErrResponse
-func PutArticle(w http.ResponseWriter, r *http.Request) {
-	article := &types.Article{}
-	if err := render.Bind(r, article); err != nil {
+func PutUser(w http.ResponseWriter, r *http.Request) {
+	user := &types.User{}
+	if err := render.Bind(r, user); err != nil {
 		_ = render.Render(w, r, types.ErrInvalidRequest(err))
 		return
 	}
 
-	if err := DBClient.SetArticle(article); err != nil {
+	if err := DBClient.SetUser(user); err != nil {
 		_ = render.Render(w, r, types.ErrInvalidRequest(err))
 		return
 	}
 
-	if err := render.Render(w, r, article); err != nil {
+	if err := render.Render(w, r, user); err != nil {
 		_ = render.Render(w, r, types.ErrRender(err))
 		return
 	}
 }
 
-// ListArticles returns all articles in the database
-// @Summary List all articles
-// @Description Get all articles stored in the database
-// @Tags Articles
+// ListUsers returns all users in the database
+// @Summary List all users
+// @Description Get all users stored in the database
+// @Tags Users
 // @Produce json
 // @Param page_id query string false "id of the page to be retrieved"
-// @Router /articles [get]
-// @Success 200 {object} types.ArticleList
+// @Router /users [get]
+// @Success 200 {object} types.UserList
 // @Failure 400 {object} types.ErrResponse
 // @Failure 404 {object} types.ErrResponse
-func ListArticles(w http.ResponseWriter, r *http.Request) {
+func ListUsers(w http.ResponseWriter, r *http.Request) {
 	pageID := r.Context().Value(m.PageIDKey)
-	if err := render.Render(w, r, DBClient.GetArticles(pageID.(int))); err != nil {
+	if err := render.Render(w, r, DBClient.GetUsers(pageID.(int))); err != nil {
 		_ = render.Render(w, r, types.ErrRender(err))
 		return
 	}
 }
 
-// GetOrder renders the order from the context
-// @Summary Get order by id
-// @Description GetOrder returns a single order by id
-// @Tags Orders
+// GetUnit renders the unit from the context
+// @Summary Get unit by id
+// @Description GetUnit returns a single unit by id
+// @Tags Units
 // @Produce json
-// @Param id path string true "order id"
-// @Router /orders/{id} [get]
-// @Success 200 {object} types.Order
+// @Param id path string true "unit id"
+// @Router /unit/{id} [get]
+// @Success 200 {object} types.Unit
 // @Failure 400 {object} types.ErrResponse
 // @Failure 404 {object} types.ErrResponse
-func GetOrder(w http.ResponseWriter, r *http.Request) {
-	order := r.Context().Value(m.OrderCtxKey).(*types.Order)
+func GetUnit(w http.ResponseWriter, r *http.Request) {
+	unit := r.Context().Value(m.UnitCtxKey).(*types.Unit)
 
-	if err := render.Render(w, r, order); err != nil {
+	if err := render.Render(w, r, unit); err != nil {
 		_ = render.Render(w, r, types.ErrRender(err))
 		return
 	}
 }
 
-// PutOrder writes an order to the database
-// @Summary Add an order to the database
-// @Description PutOrder writes an order to the database
-// @Description To write a new order, leave the id empty. To update an existing one, use the id of the order to be updated
-// @Tags Orders
+// PutUnit writes an unit to the database
+// @Summary Add an unit to the database
+// @Description PutUnit writes an unit to the database
+// @Description To write a new unit, leave the id empty. To update an existing one, use the id of the unit to be updated
+// @Tags Units
 // @Produce json
-// @Router /orders [put]
-// @Success 200 {object} types.Order
+// @Router /units [put]
+// @Success 200 {object} types.Unit
 // @Failure 400 {object} types.ErrResponse
 // @Failure 404 {object} types.ErrResponse
-func PutOrder(w http.ResponseWriter, r *http.Request) {
-	order := &types.Order{}
-	if err := render.Bind(r, order); err != nil {
+func PutUnit(w http.ResponseWriter, r *http.Request) {
+	unit := &types.Unit{}
+	if err := render.Bind(r, unit); err != nil {
 		_ = render.Render(w, r, types.ErrInvalidRequest(err))
 		return
 	}
 
-	if err := DBClient.SetOrder(order); err != nil {
+	if err := DBClient.SetUnit(unit); err != nil {
 		_ = render.Render(w, r, types.ErrInvalidRequest(err))
 		return
 	}
 
-	if err := render.Render(w, r, order); err != nil {
+	if err := render.Render(w, r, unit); err != nil {
 		_ = render.Render(w, r, types.ErrRender(err))
 		return
 	}
 }
 
-// ListOrders returns all orders in the database
-// @Summary List all orders
-// @Description Get all orders stored in the database
-// @Tags Orders
+// ListUnits returns all units in the database
+// @Summary List all units
+// @Description Get all units stored in the database
+// @Tags Units
 // @Produce json
 // @Param page_id query string false "id of the page to be retrieved"
-// @Router /orders [get]
-// @Success 200 {object} types.OrderList
+// @Router /units [get]
+// @Success 200 {object} types.UnitList
 // @Failure 400 {object} types.ErrResponse
 // @Failure 404 {object} types.ErrResponse
-func ListOrders(w http.ResponseWriter, r *http.Request) {
+func ListUnits(w http.ResponseWriter, r *http.Request) {
 	pageID := r.Context().Value(m.PageIDKey)
-	if err := render.Render(w, r, DBClient.GetOrders(pageID.(int))); err != nil {
+	if err := render.Render(w, r, DBClient.GetUnits(pageID.(int))); err != nil {
 		_ = render.Render(w, r, types.ErrRender(err))
 		return
 	}

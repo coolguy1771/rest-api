@@ -12,6 +12,7 @@ import (
 	"github.com/coolguy1771/rest-api/docs"
 	"github.com/coolguy1771/rest-api/pkg/api"
 	"github.com/coolguy1771/rest-api/pkg/db"
+	
 )
 
 var (
@@ -25,6 +26,7 @@ func init() {
 }
 
 func main() {
+	docs.Make()
 	docs.SwaggerInfo.Version = version
 
 	// gracefully exit on keyboard interrupt
@@ -54,6 +56,7 @@ func main() {
 			os.Exit(1)
 		}
 	}()
+
 
 	log.Info("ready to serve requests on " + addr)
 	<-c

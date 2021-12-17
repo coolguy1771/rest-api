@@ -14,9 +14,9 @@ import (
 
 var (
 	testClient  = &Client{}
-	testArticle = types.Article{
-		Name:  "Skittles",
-		Price: 1.99,
+	testUser = types.User{
+		Name:  "Frosty Sigh",
+		DiscordID: "12345678",
 	}
 )
 
@@ -53,45 +53,45 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func TestClient_Articles(t *testing.T) {
-	testClient.Client.DropTable(&types.Article{})
+func TestClient_Users(t *testing.T) {
+	testClient.Client.DropTable(&types.User{})
 	testClient.autoMigrate()
-	first := testArticle
-	err := testClient.SetArticle(&first)
+	first := testUser
+	err := testClient.SetUser(&first)
 	assert.NoError(t, err)
 	assert.Equal(t, 1, first.ID)
 
-	second := testArticle
-	err = testClient.SetArticle(&second)
+	second := testUser
+	err = testClient.SetUser(&second)
 	assert.NoError(t, err)
 	assert.Equal(t, 2, second.ID)
 
 	update := first
-	update.Price = 2.99
-	err = testClient.SetArticle(&update)
+	update.DiscordID = "23456789"
+	err = testClient.SetUser(&update)
 	assert.NoError(t, err)
 
-	got := testClient.GetArticleByID(1)
-	assert.Equal(t, testArticle.Name, got.Name, "")
-	assert.Equal(t, 2.99, got.Price, "")
+	got := testClient.GetUserByID(1)
+	assert.Equal(t, testUser.Name, got.Name, "")
+	assert.Equal(t, "23456789", got.DiscordID, "")
 
-	got = testClient.GetArticleByID(2)
-	assert.Equal(t, testArticle.Name, got.Name, "")
-	assert.Equal(t, 1.99, got.Price, "")
+	got = testClient.GetUserByID(2)
+	assert.Equal(t, testUser.Name, got.Name, "")
+	assert.Equal(t, "12345678", got.DiscordID, "")
 }
 
-func TestClient_PaginateArticles(t *testing.T) {
-	testClient.Client.DropTable(&types.Article{})
+func TestClient_PaginateUsers(t *testing.T) {
+	testClient.Client.DropTable(&types.User{})
 	testClient.autoMigrate()
 	for i := 0; i < pageSize+2; i++ {
-		article := testArticle
-		_ = testClient.SetArticle(&article)
+		user := testUser
+		_ = testClient.SetUser(&user)
 	}
-	got := testClient.GetArticles(0)
+	got := testClient.GetUsers(0)
 	assert.Equal(t, 10, len(got.Items))
 	assert.Equal(t, 11, got.NextPageID)
 
-	got = testClient.GetArticles(11)
+	got = testClient.GetUsers(11)
 	assert.Equal(t, 2, len(got.Items))
 	assert.Equal(t, 0, got.NextPageID)
 }

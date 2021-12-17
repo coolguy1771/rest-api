@@ -10,7 +10,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	httpSwagger "github.com/swaggo/http-swagger"
 
-	m "github.com/coolguy1771/rest-api/pkg/middelware"
+	m "github.com/coolguy1771/rest-api/pkg/middleware"
 )
 
 var DBClient db.ClientInterface
@@ -21,12 +21,11 @@ func SetDBClient(c db.ClientInterface) {
 }
 
 // GetRouter configures a chi router and starts the http server
-// @title My API
-// @description This API is a sample go-api.
-// @description It also does this.
-// @contact.name Jonny Langefeld
-// @contact.email jonny.langefeld@gmail.com
-// @host example.com
+// @title REST API Written in go
+// @description This API is designed for Black Element's PERSCOM Project
+// @contact.name Tyler Witlin
+// @contact.email 
+// @host localhost:8080
 // @BasePath /
 func GetRouter(log *zap.Logger, dbClient db.ClientInterface) *chi.Mux {
 	r := chi.NewRouter()
@@ -46,25 +45,25 @@ func buildTree(r *chi.Mux) {
 	})
 	r.Get("/swagger*", httpSwagger.Handler())
 
-	r.Route("/articles", func(r chi.Router) {
-		r.With(m.Pagination).Get("/", ListArticles)
+	r.Route("/users", func(r chi.Router) {
+		r.With(m.Pagination).Get("/", ListUsers)
 
 		r.Route("/{id}", func(r chi.Router) {
-			r.Use(m.Article)
-			r.Get("/", GetArticle)
+			r.Use(m.User)
+			r.Get("/", GetUser)
 		})
 
-		r.Put("/", PutArticle)
+		r.Put("/", PutUser)
 	})
 
-	r.Route("/orders", func(r chi.Router) {
-		r.With(m.Pagination).Get("/", ListOrders)
+	r.Route("/units", func(r chi.Router) {
+		r.With(m.Pagination).Get("/", ListUnits)
 
 		r.Route("/{id}", func(r chi.Router) {
-			r.Use(m.Order)
-			r.Get("/", GetOrder)
+			r.Use(m.Unit)
+			r.Get("/", GetUnit)
 		})
 
-		r.Put("/", PutOrder)
+		r.Put("/", PutUnit)
 	})
 }

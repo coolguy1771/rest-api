@@ -20,15 +20,15 @@ import (
 )
 
 var (
-	testArticle1 = types.Article{
+	testUser1 = types.User{
 		ID:    1,
-		Name:  "Skittles",
-		Price: 1.99,
+		Name:  "Frosty Sigh",
+		DiscordID: "12345678",
 	}
-	testArticle2 = types.Article{
+	testUser2 = types.User{
 		ID:    2,
-		Name:  "Jelly Beans",
-		Price: 2.99,
+		Name:  "Runic Moose",
+		DiscordID: "87654321",
 	}
 )
 
@@ -41,21 +41,21 @@ func TestGetRouter(t *testing.T) {
 		method string
 		path   string
 	}{
-		"GET /articles": {
+		"GET /users": {
 			method: http.MethodGet,
-			path:   "/articles",
+			path:   "/users",
 		},
-		"GET /articles/{id}": {
+		"GET /users/{id}": {
 			method: http.MethodGet,
-			path:   "/articles/id",
+			path:   "/users/id",
 		},
-		"GET /orders": {
+		"GET /units": {
 			method: http.MethodGet,
-			path:   "/orders",
+			path:   "/units",
 		},
-		"GET /orders/{id}": {
+		"GET /units/{id}": {
 			method: http.MethodGet,
-			path:   "/orders/id",
+			path:   "/units/id",
 		},
 		"GET /swagger": {
 			method: http.MethodGet,
@@ -77,24 +77,24 @@ func getDBClientMock(t *testing.T) *mocks.MockClientInterface {
 	ctrl := gomock.NewController(t)
 	dbClient := mocks.NewMockClientInterface(ctrl)
 
-	dbClient.EXPECT().GetArticles(gomock.Eq(0)).Return(&types.ArticleList{
-		Items: []*types.Article{
-			&testArticle1,
-			&testArticle2,
+	dbClient.EXPECT().GetUsers(gomock.Eq(0)).Return(&types.UserList{
+		Items: []*types.User{
+			&testUser1,
+			&testUser2,
 		},
 	})
 
-	dbClient.EXPECT().GetArticles(gomock.Eq(1)).Return(&types.ArticleList{
-		Items: []*types.Article{
-			&testArticle2,
+	dbClient.EXPECT().GetUsers(gomock.Eq(1)).Return(&types.UserList{
+		Items: []*types.User{
+			&testUser2,
 		},
 	})
 
-	dbClient.EXPECT().GetArticleByID(gomock.Eq(1)).Return(&testArticle1).AnyTimes()
+	dbClient.EXPECT().GetUserByID(gomock.Eq(1)).Return(&testUser1).AnyTimes()
 
-	dbClient.EXPECT().SetArticle(gomock.Any()).DoAndReturn(func(article *types.Article) error {
-		if article.ID == 0 {
-			article.ID = 1
+	dbClient.EXPECT().SetUser(gomock.Any()).DoAndReturn(func(user *types.User) error {
+		if user.ID == 0 {
+			user.ID = 1
 		}
 		return nil
 	}).AnyTimes()
@@ -116,33 +116,33 @@ func TestEndpoints(t *testing.T) {
 		wantCode int
 		wantBody string
 	}{
-		"GET /articles": {
+		"GET /users": {
 			method:   http.MethodGet,
-			path:     "/articles",
+			path:     "/users",
 			wantCode: http.StatusOK,
-			wantBody: `{"items":[{"id":1,"name":"Skittles","price":1.99},{"id":2,"name":"Jelly Beans","price":2.99}]}`,
+			wantBody: `{"users":[{"id":1,"name":"Frosty Sigh","discord":"12345678"},{"id":2,"name":"Runic Moose","discord":"87654321"}]}`,
 		},
-		"GET /articles?page_id=1": {
+		"GET /users?page_id=1": {
 			method:   http.MethodGet,
-			path:     "/articles?page_id=1",
+			path:     "/users?page_id=1",
 			wantCode: http.StatusOK,
-			wantBody: `{"items":[{"id":2,"name":"Jelly Beans","price":2.99}]}`,
+			wantBody: `{"users":[{"id":2,"name":"Runic Moose","discord":"87654321"}]}`,
 		},
-		"GET /articles/{id}": {
+		"GET /users/{id}": {
 			method:   http.MethodGet,
-			path:     "/articles/1",
+			path:     "/users/1",
 			wantCode: http.StatusOK,
-			wantBody: `{"id":1,"name":"Skittles","price":1.99}`,
+			wantBody: `{"id":1,"name":"Frosty Sigh","discord":"12345678"}`,
 		},
-		"PUT /articles": {
+		"PUT /users": {
 			method: http.MethodPut,
-			path:   "/articles",
-			body:   `{"name":"Skittles","price":1.99}`,
+			path:   "/users",
+			body:   `{"name":"Frosty Sigh","discord":"12345678"}`,
 			header: map[string][]string{
 				"Content-Type": {"application/json"},
 			},
 			wantCode: http.StatusOK,
-			wantBody: `{"id":1,"name":"Skittles","price":1.99}`,
+			wantBody: `{"id":1,"name":"Frosty Sigh","discord":"12345678"}`,
 		},
 		"Page Not Found": {
 			method:   http.MethodGet,
