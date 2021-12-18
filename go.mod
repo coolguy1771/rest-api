@@ -64,7 +64,7 @@ require (
 
 require (
 	github.com/go-chi/chi v1.5.4
-	github.com/go-chi/chi/v5 v5.0.6
+	github.com/go-chi/chi/v5 v5.0.7
 	github.com/golang/mock v1.6.0
 	github.com/ory/dockertest/v3 v3.8.0
 	github.com/stretchr/testify v1.7.0
