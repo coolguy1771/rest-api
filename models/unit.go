@@ -1,16 +1,33 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 // Unit table
 type Unit struct {
-	ID              uint       `gorm:"primary_key;column:ID"`
-	UUID            string     `gorm:"not null;column:UNIT_ID"`
-	Name            string     `gorm:"not null;column:UNIT_NAME"`
-	Description     string     `gorm:"not null;column:UNIT_DESC"`
-	Creator         string     `gorm:"not null;column:CREATOR"`
-	CreatedDatetime time.Time  `gorm:"not null;column:CREATED_DATETIME"`
-	UpdatedDatetime time.Time  `gorm:"column:UPDATED_DATETIME"`
-	CreatedBy       string     `gorm:"not null;column:CREATED_BY"`
-	UpdateBy        string     `gorm:"column:UPDATED_BY"`
+	ApiUnit       `gorm:"embedded"`
+	Name          string `gorm:"not null;column:UNIT_NAME"`
+	Description   string `gorm:"not null;column:UNIT_DESC"`
+	RankStructure string `gorm:"not null;column:RANK_TYPE"`
+	Affiliation   string `gorm:"not null;column:AFFILIATION"`
+	Branch        string `gorm:"not null;column:BRANCH"`
+	Leader        string `gorm:"not null;column:LEADER"`
+	CreatedBy     string `gorm:"not null;column:CREATED_BY"`
+	UpdateBy      string `gorm:"column:UPDATED_BY"`
+}
+
+type ApiUnit struct {
+	gorm.Model
+	ID            uint8          `gorm:"primaryKey"`
+	CreatedAt     time.Time      `gorm:"autoCreateTime" json:"createdAt"`
+	UpdatedAt     time.Time      `gorm:"autoUpdateTime" json:"updatedAt"`
+	DeletedAt     gorm.DeletedAt `gorm:"index"`
+	Name          string
+	Affiliation   string
+	Branch        string
+	RankStructure string
+	NumUsers      uint8
 }

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      name="viewport"
+    />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Favicon and title -->
+    <link rel="icon" href="img/fake-logo.svg" />
+    <title>PERSCOM</title>
+
+    <!-- Halfmoon CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    class="with-custom-webkit-scrollbars with-custom-css-scrollbars"
+    data-dm-shortcut-enabled="true"
+    data-set-preferred-mode-onload="true"
+  >
+    <!-- Modals go here -->
+    <!-- Reference: https://www.gethalfmoon.com/docs/modal -->
+
+    <!-- Page wrapper start -->
+    <div class="page-wrapper with-navbar with-navbar-fixed-bottom">
+      <!-- Sticky alerts (toasts), empty container -->
+      <!-- Reference: https://www.gethalfmoon.com/docs/sticky-alerts-toasts -->
+      <div class="sticky-alerts"></div>
+
+      <!-- Navbar start -->
+      <nav class="navbar" id="navbar">
+        <a href="/" class="navbar-brand d-none d-lg-flex">
+          <!-- Navbar brand -->
+          <img src="img/unsc-logo.svg" />
+          PERSCOM
+        </a>
+        <!-- Navbar nav -->
+        <ul class="navbar-nav d-none d-md-flex">
+          <!-- d-none = display: none, d-md-flex = display: flex on medium screens and up (width > 768px) -->
+          <li class="nav-item">
+            <a href="index" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="news" class="nav-link">News</a>
+          </li>
+          <li class="nav-item active">
+            <a href="units" class="nav-link">Units Database</a>
+          </li>
+          <li class="nav-item dropdown toggle-on-hover">
+            <a
+              class="nav-link"
+              data-toggle="dropdown"
+              id="hover-dropdown-toggle"
+            >
+              Dropdown
+              <i class="fa fa-angle-down ml-5" aria-hidden="true"></i>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="nav-toggle-on-hover-toggle"
+            >
+              <a href="createUser" class="dropdown-item">Create New Player</a>
+              <a href="createUnit" class="dropdown-item">Create New Unit</a>
+              <a href="#" class="dropdown-item"
+                >Option 3
+                <strong class="badge badge-success float-right">New</strong>
+                <!-- float-right = float: right -->
+              </a>
+              <div class="dropdown-divider"></div>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav d-none d-md-flex ml-auto mr-5">
+          <a href="/auth" class="btn btn-discord"
+            ><i class="fab fa-discord" aria-hidden="true"></i> Login</a
+          >
+
+          <button
+            class="btn btn-action ml-5"
+            type="button"
+            onclick="halfmoon.toggleDarkMode()"
+            aria-label="Toggle dark mode"
+          >
+            <i class="far fa-moon" aria-hidden="true"></i>
+          </button>
+        </ul>
+      </nav>
+      <!-- Navbar end -->
+      <!-- Content wrapper start -->
+      <div class="content-wrapper">
+        <!-- Container-fluid -->
+      </div>
+      <div id="page-content" class="content-wrapper py-0">
+        <div class="container-fluid py-0">
+          <div class="row row-eq-spacing-lg">
+            <div class="col px-5 px-sm-20">
+              <div class="container-fluid">
+                <h2 class="text-center">Units</h2>
+                <div class="px-0 mx-0 px-sm-20 mx-sm-20">
+                  <div class="content p-0 m-0 p-sm-10">
+                    <h4>Top Active</h4>
+                    <table class="table table-hover" style="width: 100%">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Last Active</th>
+                          <th>Num. Members</th>
+
+                          <th class="text-right">Badges</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          class="hover"
+                          onclick="window.location='/unit/randonstring';"
+                        >
+                          <td>Black Element Studio</td>
+                          <td>13/01/2022</td>
+                          <td>45</td>
+                          <td class="text-right">
+                            <span class="badge badge-pill my-5 mr-5 badge-unsc"
+                              >UNSC</span
+                            >
+
+                            <span class="badge badge-pill my-5 mr-5 badge-osdt"
+                              >ODST</span
+                            >
+
+                            <span
+                              class="badge badge-pill my-5 mr-5 badge-semi-real"
+                              >Semi-Realism</span
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="v-spacer border-bottom"></div>
+                    <div class="v-spacer-thin"></div>
+                    <h4 id="top-unsc">Top UNSC</h4>
+                    <table class="table table-hover" style="width: 100%">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Last Active</th>
+                          <th>Num. Members</th>
+                          <th class="text-right">Badges</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          class="hover"
+                          onclick="window.location='/unit/randonstring';"
+                        >
+                          <td>21st SAB</td>
+                          <td>13/01/2021</td>
+                          <td>3</td>
+                          <td class="text-right">
+                            <span class="badge badge-pill my-5 mr-5 badge-unsc"
+                              >UNSC</span
+                            >
+
+                            <span class="badge badge-pill my-5 mr-5 badge-osdt"
+                              >ODST</span
+                            >
+
+                            <span
+                              class="badge badge-pill my-5 mr-5 badge-semi-real"
+                              >Semi-Realism</span
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="v-spacer border-bottom"></div>
+                    <div class="v-spacer-thin"></div>
+                    <h4 id="other">Other</h4>
+                    <table class="table table-hover" style="width: 100%">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Last Active</th>
+                          <th>Num. Members</th>
+
+                          <th class="text-right">Badges</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                    <div class="v-spacer border-bottom"></div>
+                    <div class="v-spacer-thin"></div>
+                    <h4 id="top-covenent">Top Covenent</h4>
+                    <table class="table table-hover" style="width: 100%">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Last Active</th>
+                          <th>Num. Members</th>
+
+                          <th class="text-right">Badges</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                    <div class="v-spacer border-bottom"></div>
+                    <div class="v-spacer-thin"></div>
+                    <h4 id="top-ins">Top insurrectionist</h4>
+                    <table class="table table-hover" style="width: 100%">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Last Active</th>
+                          <th>Num. Members</th>
+
+                          <th class="text-right">Badges</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Content wrapper end -->
+
+      <!-- Navbar fixed bottom start -->
+      <nav class="navbar navbar-fixed-bottom">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-question-circle-o mr-5" aria-hidden="true"></i>
+              Help
+            </a>
+          </li>
+        </ul>
+        <span class="navbar-text"> © Copyright 2021, PERSCOM </span>
+      </nav>
+      <!-- Navbar fixed bottom end -->
+    </div>
+    <!-- Page wrapper end -->
+
+    <!-- Halfmoon JS -->
+    <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8"/>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+            name="viewport"
+    />
+    <meta content="width=device-width" name="viewport"/>
+
+    <!-- Favicon and title -->
+    <link href="img/unsc-logo.svg" rel="icon"/>
+    <title>PERSCOM</title>
+
+    <!-- Halfmoon CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css"
+            rel="stylesheet"
+    />
+</head>
+<body
+        class="with-custom-webkit-scrollbars with-custom-css-scrollbars"
+        data-dm-shortcut-enabled="true"
+        data-set-preferred-mode-onload="true"
+>
+<!-- Modals go here -->
+<!-- Reference: https://www.gethalfmoon.com/docs/modal -->
+
+<!-- Page wrapper start -->
+<div class="page-wrapper with-navbar with-navbar-fixed-bottom">
+    <!-- Sticky alerts (toasts), empty container -->
+    <!-- Reference: https://www.gethalfmoon.com/docs/sticky-alerts-toasts -->
+    <div class="sticky-alerts"></div>
+
+    <!-- Navbar start -->
+    <nav class="navbar">
+        <!-- Navbar content (with toggle sidebar button) -->
+        <div class="navbar-content"></div>
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">
+            <img alt="..." src="img/unsc-logo.svg"/>
+            PERSCOM
+        </a>
+        <!-- Navbar text -->
+        <span class="navbar-text text-monospace"
+        >U.N.S.C. PERSONNEL COMMAND</span
+        >
+        <!-- text-monospace = font-family shifted to monospace -->
+        <!-- Navbar nav -->
+        <ul class="navbar-nav d-none d-md-flex">
+            <!-- d-none = display: none, d-md-flex = display: flex on medium screens and up (width > 768px) -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Units Database</a>
+            </li>
+            <li class="nav-item dropdown toggle-on-hover">
+                <a
+                        class="nav-link"
+                        data-toggle="dropdown"
+                        id="hover-dropdown-toggle"
+                >
+                    Dropdown
+                    <i aria-hidden="true" class="fa fa-angle-down ml-5"></i>
+                </a>
+                <div
+                        aria-labelledby="nav-toggle-on-hover-toggle"
+                        class="dropdown-menu dropdown-menu-right"
+                >
+                    <a class="dropdown-item" href="#">Option 1</a>
+                    <a class="dropdown-item" href="#">Option 2</a>
+                    <a class="dropdown-item" href="#">
+                        Option 3
+                        <strong class="badge badge-success float-right">New</strong>
+                        <!-- float-right = float: right -->
+                    </a>
+                    <div class="dropdown-divider"></div>
+                </div>
+            </li>
+        </ul>
+        <!-- Navbar form (inline form) -->
+        <!-- Navbar content (with the dropdown menu) -->
+        <div class="navbar-content d-md-none ml-auto">
+            <!-- d-md-none = display: none on medium screens and up (width > 768px), ml-auto = margin-left: auto -->
+            <div class="dropdown with-arrow">
+                <button
+                        class="btn"
+                        data-toggle="dropdown"
+                        id="navbar-dropdown-toggle-btn-1"
+                        type="button"
+                >
+                    Menu
+                    <i aria-hidden="true" class="fa fa-angle-down"></i>
+                </button>
+                <div
+                        aria-labelledby="navbar-dropdown-toggle-btn-1"
+                        class="dropdown-menu dropdown-menu-right w-200"
+                >
+                    <!-- w-200 = width: 20rem (200px) -->
+                    <a class="dropdown-item" href="#">Home</a>
+                    <a class="dropdown-item" href="#">News</a>
+                    <a class="dropdown-item" href="#">Units Database</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-content">
+                        <form action="..." method="...">
+                            <div class="form-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="Email address"
+                                        required="required"
+                                        type="text"
+                                />
+                            </div>
+                            <button class="btn btn-primary btn-block" type="submit">
+                                Sign In
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+    <!-- Content wrapper start -->
+    <div align="center" class="content-wrapper">
+        <!-- Container-fluid -->
+        <form action="..." class="w-500 mw-full" method="...">
+            <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
+            <!-- Input -->
+            <div class="form-group">
+                <label class="required" for="first-name">Full Name</label>
+                <input
+                        class="form-control"
+                        id="first-name"
+                        placeholder="First Name (Example: Joe/Jane)"
+                        required="required"
+                        type="text"
+                />
+                <input
+                        class="form-control"
+                        id="last-name"
+                        placeholder="Last Name (Example: Doe)"
+                        required="required"
+                        type="text"
+                />
+                <input
+                        class="form-control"
+                        id="nickname"
+                        placeholder="Known Aliases (Example: JD, J, Etc.)"
+                        required="required"
+                        type="text"
+                />
+            </div>
+
+            <div class="form-group">
+                <label class="required" for="dob">Date of Birth</label>
+                <input
+                        class="form-control"
+                        id="dob"
+                        placeholder="Date of Birth"
+                        required="required"
+                        type="date"
+                />
+            </div>
+
+            <!-- Radio -->
+            <div align="Left" class="form-group">
+                <label class="required" for="gender-male">Gender</label>
+                <div class="custom-radio">
+                    <input
+                            id="gender-male"
+                            name="gender"
+                            required="required"
+                            type="radio"
+                            value="male"
+                    />
+                    <label for="gender-male">Male</label>
+                </div>
+                <div class="custom-radio">
+                    <input
+                            id="gender-female"
+                            name="gender"
+                            required="required"
+                            type="radio"
+                            value="female"
+                    />
+                    <label for="gender-female">Female</label>
+                </div>
+                <div class="custom-radio">
+                    <input
+                            id="gender-other"
+                            name="gender"
+                            required="required"
+                            type="radio"
+                            value="other"
+                    />
+                    <label for="gender-other">Other</label>
+                </div>
+                <div class="custom-radio">
+                    <input
+                            id="gender-other2"
+                            name="gender"
+                            required="required"
+                            type="radio"
+                            value="other2"
+                    />
+                    <label for="gender-other2">Prefer not to say</label>
+                </div>
+            </div>
+
+            <!-- Select -->
+            <!--  <div class="form-group">
+                <label for="area-of-specialization" class="required">Area of specialization</label>
+                <select class="form-control" id="area-of-specialization" required="required">
+                  <option value="" selected="selected" disabled="disabled">Select your area of specialization</option>
+                  <option value="front-end">Front-end</option>
+                  <option value="back-end">Back-end</option>
+                  <option value="full-stack">Full-stack</option>
+                </select>
+              </div> -->
+
+            <!-- Multi-select -->
+            <div class="form-group">
+                <label class="required" for="languages">Languages</label>
+                <select
+                        class="form-control"
+                        id="languages"
+                        multiple="select-1"
+                        required="required"
+                >
+                    <option value="eng">English</option>
+                    <option value="swe">Swedish</option>
+                    <option value="es">Spanish</option>
+                    <option value="ita">Italian</option>
+                    ...
+                </select>
+            </div>
+
+            <!-- Text area -->
+            <div class="form-group">
+                <label for="description">Background</label>
+                <textarea
+                        class="form-control"
+                        id="description"
+                        placeholder="Write a short description about yourself or your in-game character."
+                ></textarea>
+            </div>
+
+            <!-- Checkbox -->
+            <div class="form-group">
+                <div class="custom-checkbox">
+                    <input id="agree-to-terms" type="checkbox"/>
+                    <label for="agree-to-terms"
+                    >By creating an account you agree to our
+                        <a class="hyperlink" href="#">terms and conditions</a></label
+                    >
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <input class="btn btn-primary" type="submit" value="Submit"/>
+        </form>
+    </div>
+    <!--
+      Add your page's main content here
+      Examples:
+      1. https://www.gethalfmoon.com/docs/content-and-cards/#building-a-page
+      2. https://www.gethalfmoon.com/docs/grid-system/#building-a-dashboard
+    -->
+    <!-- Content wrapper end -->
+
+    <!-- Navbar fixed bottom start -->
+    <nav class="navbar navbar-fixed-bottom">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i aria-hidden="true" class="fa fa-question-circle-o mr-5"></i>
+                    Help
+                </a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+          © Copyright 2022, Black Element Studio
+        </span>
+    </nav>
+    <!-- Navbar fixed bottom end -->
+</div>
+<!-- Page wrapper end -->
+
+<!-- Halfmoon JS -->
+<script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+</body>
+</html>

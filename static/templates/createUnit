@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      name="viewport"
+    />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Favicon and title -->
+    <link rel="icon" href="img/fake-logo.svg" />
+    <title>PERSCOM</title>
+
+    <!-- Halfmoon CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    class="with-custom-webkit-scrollbars with-custom-css-scrollbars"
+    data-dm-shortcut-enabled="true"
+    data-set-preferred-mode-onload="true"
+  >
+    <!-- Modals go here -->
+    <!-- Reference: https://www.gethalfmoon.com/docs/modal -->
+
+    <!-- Page wrapper start -->
+    <div class="page-wrapper with-navbar with-navbar-fixed-bottom">
+      <!-- Sticky alerts (toasts), empty container -->
+      <!-- Reference: https://www.gethalfmoon.com/docs/sticky-alerts-toasts -->
+      <div class="sticky-alerts"></div>
+
+      <!-- Navbar start -->
+      <nav class="navbar" id="navbar">
+        <a href="/" class="navbar-brand d-none d-lg-flex">
+          <!-- Navbar brand -->
+          <img src="img/unsc-logo.svg" />
+          PERSCOM
+        </a>
+        <!-- Navbar nav -->
+        <ul class="navbar-nav d-none d-md-flex">
+          <!-- d-none = display: none, d-md-flex = display: flex on medium screens and up (width > 768px) -->
+          <li class="nav-item active">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="news" class="nav-link">News</a>
+          </li>
+          <li class="nav-item">
+            <a href="units" class="nav-link">Units Database</a>
+          </li>
+          <li class="nav-item dropdown toggle-on-hover">
+            <a
+              class="nav-link"
+              data-toggle="dropdown"
+              id="hover-dropdown-toggle"
+            >
+              Dropdown
+              <i class="fa fa-angle-down ml-5" aria-hidden="true"></i>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="nav-toggle-on-hover-toggle"
+            >
+              <a href="createUser" class="dropdown-item">Create New Player</a>
+              <a href="createUnit" class="dropdown-item">Create New Unit</a>
+              <a href="#" class="dropdown-item"
+                >Option 3
+                <strong class="badge badge-success float-right">New</strong>
+                <!-- float-right = float: right -->
+              </a>
+              <div class="dropdown-divider"></div>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav d-none d-md-flex ml-auto mr-5">
+          <a href="/auth" class="btn btn-discord"
+            ><i class="fab fa-discord" aria-hidden="true"></i> Login</a
+          >
+
+          <button
+            class="btn btn-action ml-5"
+            type="button"
+            onclick="halfmoon.toggleDarkMode()"
+            aria-label="Toggle dark mode"
+          >
+            <i class="far fa-moon" aria-hidden="true"></i>
+          </button>
+        </ul>
+      </nav>
+      <!-- Navbar end -->
+      <!-- Content wrapper start -->
+      <div class="content-wrapper">
+        <!-- Container-fluid -->
+        <form action="..." method="..." class="w-400 mw-full">
+          <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
+          <!-- Input -->
+          <div class="form-group">
+            <label for="full-name" class="required">Full name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="full-name"
+              placeholder="Full name"
+              required="required"
+            />
+          </div>
+
+          <!-- Radio -->
+          <div class="form-group">
+            <label for="gender-male" class="required">Gender</label>
+            <div class="custom-radio">
+              <input
+                type="radio"
+                name="gender"
+                id="gender-male"
+                value="male"
+                required="required"
+              />
+              <label for="gender-male">Male</label>
+            </div>
+            <div class="custom-radio">
+              <input
+                type="radio"
+                name="gender"
+                id="gender-female"
+                value="female"
+                required="required"
+              />
+              <label for="gender-female">Female</label>
+            </div>
+            <div class="custom-radio">
+              <input
+                type="radio"
+                name="gender"
+                id="gender-other"
+                value="other"
+                required="required"
+              />
+              <label for="gender-other">Other</label>
+            </div>
+          </div>
+
+          <!-- Select -->
+          <div class="form-group">
+            <label for="area-of-specialization" class="required"
+              >Area of specialization</label
+            >
+            <select
+              class="form-control"
+              id="area-of-specialization"
+              required="required"
+            >
+              <option value="" selected="selected" disabled="disabled">
+                Select your area of specialization
+              </option>
+              <option value="front-end">Front-end</option>
+              <option value="back-end">Back-end</option>
+              <option value="full-stack">Full-stack</option>
+            </select>
+          </div>
+
+          <!-- Multi-select -->
+          <div class="form-group">
+            <label for="languages" class="required">Languages</label>
+            <select
+              class="form-control"
+              id="languages"
+              multiple="multiple"
+              required="required"
+              size="5"
+            >
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="php">PHP</option>
+              ...
+            </select>
+          </div>
+
+          <!-- Text area -->
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              placeholder="Write a short description about yourself."
+            ></textarea>
+          </div>
+
+          <!-- File input -->
+          <div class="form-group">
+            <label for="picture" class="required">Display picture</label>
+            <div class="custom-file">
+              <input type="file" id="picture" required="required" />
+              <label for="picture">Choose picture</label>
+            </div>
+          </div>
+
+          <!-- Switch -->
+          <div class="form-group">
+            <div class="custom-switch">
+              <input type="checkbox" id="remember-my-information" />
+              <label for="remember-my-information"
+                >Remember my information</label
+              >
+            </div>
+          </div>
+
+          <!-- Checkbox -->
+          <div class="form-group">
+            <div class="custom-checkbox">
+              <input type="checkbox" id="agree-to-terms" />
+              <label for="agree-to-terms"
+                >I agree to all the
+                <a href="#" class="hyperlink">terms and conditions</a></label
+              >
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <input class="btn btn-primary" type="submit" value="Submit" />
+        </form>
+      </div>
+      <!--
+        Add your page's main content here
+        Examples:
+        1. https://www.gethalfmoon.com/docs/content-and-cards/#building-a-page
+        2. https://www.gethalfmoon.com/docs/grid-system/#building-a-dashboard
+      -->
+      <!-- Content wrapper end -->
+
+      <!-- Navbar fixed bottom start -->
+      <nav class="navbar navbar-fixed-bottom">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-question-circle-o mr-5" aria-hidden="true"></i>
+              Help
+            </a>
+          </li>
+        </ul>
+        <span class="navbar-text"> © Copyright 2021, PERSCOM </span>
+      </nav>
+      <!-- Navbar fixed bottom end -->
+    </div>
+    <!-- Page wrapper end -->
+
+    <!-- Halfmoon JS -->
+    <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+  </body>
+</html>
