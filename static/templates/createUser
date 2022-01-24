@@ -104,7 +104,7 @@
 
           <div class="card" align="center">
             <div class="w-half">
-              <form action="/api/v1/" method="POST">
+              <form action="api/v1/" method="POST">
                 <!-- First row -->
                 <div class="form-row row-eq-spacing-sm" align="left">
                   <div class="col-sm">

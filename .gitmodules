@@ -1,0 +1,3 @@
+[submodule "perscom/themes/terminal"]
+	path = perscom/themes/terminal
+	url = https://github.com/panr/hugo-theme-terminal

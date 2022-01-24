@@ -1,98 +1,44 @@
 package main
 
 import (
-	"io"
+	"flag"
+	"fmt"
+	"log"
 	"net/http"
-	"strings"
-	"text/template"
 
-	"github.com/coolguy1771/rest-api/models"
-	"github.com/labstack/echo-contrib/prometheus"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
-	"github.com/labstack/gommon/log"
+	"github.com/cockroachdb/examples-orms/go/gorm/model"
+	"github.com/julienschmidt/httprouter"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var (
-	seq = 1
+	addr = flag.String("addr", "postgresql://root@localhost:26257/company_gorm?sslmode=disable", "the address of the database")
 )
 
-//----------
-// Handlers
-//----------
-
-func createUser(c echo.Context) error {
-	u := &models.ApiUser{}
-	if err := c.Bind(u); err != nil {
-		return err
-	}
-	seq++
-	return c.JSON(http.StatusCreated, u)
-}
-
 func main() {
-	e := echo.New()
-	e.Logger.SetLevel(log.ERROR)
-	e.Pre(middleware.RemoveTrailingSlash())
-	e.Use(middleware.RequestID())
-	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
-		Format: "time=${time_rfc3339}, method=${method}, uri=${uri}, status=${status}, requestID=${id}, host=${host}\n",
-	}))
-	e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{
-		StackSize: 1 << 10, // 1 KB
-		LogLevel:  log.ERROR,
-	}))
-	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
-		Skipper: func(c echo.Context) bool {
-			return strings.Contains(c.Path(), "metrics") // Change "metrics" for your own path
-		},
-	}))
-	//e.Use(middleware.JWTWithConfig(middleware.JWTConfig{
-	//	SigningKey: []byte(handler.Key),
-	//	Skipper: func(c echo.Context) bool {
-	//		// Skip authentication for signup and login requests
-	//		if c.Path() == "/login" || c.Path() == "/signup" {
-	//			return true
-	//		}
-	//		return false
-	//	},
-	//}))
+	flag.Parse()
 
-	//e.Static("/", "static")
-	p := prometheus.NewPrometheus("echo", nil)
-	p.Use(e)
-	e.POST("/api/v1/createUser", createUser)
-	//h := &handler.Handler{DB: db}
-	// Routes
-	//e.POST("/api/v1/createuser", )
-	//e.POST("/login", h.Login)
-	//e.POST("/follow/:id", h.Follow)
-	//e.POST("/posts", h.CreatePost)
-	//e.GET("/feed", h.FetchPost)
-	t := &Template{
-		templates: template.Must(template.ParseGlob("static/templates/*.html")),
+	db := setupDB(*addr)
+
+	router := httprouter.New()
+
+	server := NewServer(db)
+	server.RegisterRouter(router)
+
+	log.Fatal(http.ListenAndServe(":6543", router))
+}
+
+func setupDB(addr string) *gorm.DB {
+	db, err := gorm.Open(postgres.Open(addr))
+	if err != nil {
+		panic(fmt.Sprintf("failed to connect to database: %v", err))
 	}
 
-	e.Renderer = t
+	// Migrate the schema
+	if err := db.AutoMigrate(&model.Customer{}, &model.Order{}, &model.Product{}); err != nil {
+		panic(err)
+	}
 
-	e.GET("/", Index)
-	//	e.GET("/news", News)
-
-	e.Logger.Fatal(e.Start(":1323"))
+	return db
 }
-
-type Template struct {
-	templates *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
-
-func Index(c echo.Context) error {
-	return c.Render(http.StatusOK, "base", "index")
-}
-
-//func News(c echo.Context) error {
-//	return c.Render(http.StatusOK, "base", "news")
-//}

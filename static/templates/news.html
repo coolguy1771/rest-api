@@ -1,0 +1,107 @@
+{{ define "news" }}
+<!-- Navbar start -->
+<nav class="navbar" id="navbar">
+    <a href="/" class="navbar-brand d-none d-lg-flex">
+        <!-- Navbar brand -->
+        <img src="img/unsc-logo.svg" />
+        PERSCOM
+    </a>
+    <!-- Navbar nav -->
+    <ul class="navbar-nav d-none d-md-flex">
+        <!-- d-none = display: none, d-md-flex = display: flex on medium screens and up (width > 768px) -->
+        <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item active">
+            <a href="news" class="nav-link">News</a>
+        </li>
+        <li class="nav-item">
+            <a href="units.html" class="nav-link">Units Database</a>
+        </li>
+        <li class="nav-item dropdown toggle-on-hover">
+            <a
+                class="nav-link"
+                data-toggle="dropdown"
+                id="hover-dropdown-toggle"
+            >
+                Dropdown
+                <i class="fa fa-angle-down ml-5" aria-hidden="true"></i>
+            </a>
+            <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="nav-toggle-on-hover-toggle"
+            >
+                <a href="/createUser" class="dropdown-item"
+                    >Create New Player</a
+                >
+                <a href="/createUnit" class="dropdown-item">Create New Unit</a>
+                <a href="#" class="dropdown-item"
+                    >Option 3
+                    <strong class="badge badge-success float-right">New</strong>
+                    <!-- float-right = float: right -->
+                </a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li>
+    </ul>
+    <ul class="navbar-nav d-none d-md-flex ml-auto mr-5">
+        <a href="/auth" class="btn btn-discord"
+            ><i class="fab fa-discord" aria-hidden="true"></i> Login</a
+        >
+
+        <button
+            class="btn btn-action ml-5"
+            type="button"
+            onclick="halfmoon.toggleDarkMode()"
+            aria-label="Toggle dark mode"
+        >
+            <i class="far fa-moon" aria-hidden="true"></i>
+        </button>
+    </ul>
+</nav>
+<!-- Navbar end -->
+<!-- Content wrapper start -->
+<div class="content-wrapper">
+    <!-- Container-fluid -->
+    <div class="container">
+        <table id="news" width="1200" border="2" align="center">
+            <tbody>
+                <tr>
+                    <td>
+                        <div title="HighCom News" align="center" class="col-10">
+                            <h1>HighCom News</h1>
+                        </div>
+                    </td>
+                    <td>
+                        <div title="PersCom News" align="center" class="col-10">
+                            <h1>PersCom News</h1>
+                        </div>
+                    </td>
+                    <td>
+                        <div title="Unit News" align="center" class="col-10">
+                            <h1>Unit News</h1>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div title="Unit News" align="left" class="col-9">
+                            News Articles Go Here
+                        </div>
+                    </td>
+                    <td>
+                        <div title="Unit News" align="left" class="col-9">
+                            News Articles Go Here
+                        </div>
+                    </td>
+                    <td>
+                        <div title="Unit News" align="left" class="col-9">
+                            News Articles Go Here
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{{end}}

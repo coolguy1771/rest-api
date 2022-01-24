@@ -20,5 +20,5 @@ type ApiUser struct {
 	LastActive time.Time      `json:"lastActive"`
 	CreatedAt  time.Time      `gorm:"autoCreateTime" json:"createdAt"`
 	UpdatedAt  time.Time      `gorm:"autoUpdateTime" json:"updatedAt"`
-	DeletedAt  gorm.DeletedAt `gorm:"index"`
+	DeletedAt  gorm.DeletedAt `gorm:"index.html"`
 }

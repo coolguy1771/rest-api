@@ -24,7 +24,7 @@ type ApiUnit struct {
 	ID            uint8          `gorm:"primaryKey"`
 	CreatedAt     time.Time      `gorm:"autoCreateTime" json:"createdAt"`
 	UpdatedAt     time.Time      `gorm:"autoUpdateTime" json:"updatedAt"`
-	DeletedAt     gorm.DeletedAt `gorm:"index"`
+	DeletedAt     gorm.DeletedAt `gorm:"index.html"`
 	Name          string
 	Affiliation   string
 	Branch        string
