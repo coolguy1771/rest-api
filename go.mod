@@ -7,7 +7,7 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/spf13/pflag v1.0.5
-	github.com/swaggo/swag v1.7.6
+	github.com/swaggo/swag v1.7.9
 	github.com/urfave/cli/v2 v2.3.0
 	go.uber.org/zap v1.19.1
 )
@@ -68,7 +68,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/ory/dockertest/v3 v3.8.1
 	github.com/stretchr/testify v1.7.0
-	github.com/swaggo/http-swagger v1.1.2
+	github.com/swaggo/http-swagger v1.2.6
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 )
