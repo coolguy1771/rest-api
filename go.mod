@@ -67,7 +67,7 @@ require (
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/golang/mock v1.6.0
 	github.com/ory/dockertest/v3 v3.8.1
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	github.com/swaggo/http-swagger v1.2.6
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
