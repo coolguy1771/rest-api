@@ -7,7 +7,7 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/spf13/pflag v1.0.5
-	github.com/swaggo/swag v1.7.9
+	github.com/swaggo/swag v1.8.1
 	github.com/urfave/cli/v2 v2.3.0
 	go.uber.org/zap v1.19.1
 )
