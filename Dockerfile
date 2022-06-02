@@ -1,4 +1,4 @@
-FROM golang:1.18.1 as gobuild
+FROM golang:1.18.3 as gobuild
 ARG VERSION=latest
 
 WORKDIR /Users/twitlin/Code/repos/coolguy1771/rest-api/
